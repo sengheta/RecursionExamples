@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /*
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public class RecursionQuestion {
 	public static void main(String[] args) {
-		int [] test = {1};
+		int [] test = {1,2,3,4};
 		powerSet(test);
 	}
 
@@ -88,15 +89,25 @@ public class RecursionQuestion {
 	 * 
 	 * 
 	 */
-
+	//[[2],[]]
 	public static ArrayList<ArrayList<Integer>> copyPs (ArrayList<ArrayList<Integer>> arrayList){
 
-		ArrayList<ArrayList<Integer>> newList = new ArrayList<ArrayList<Integer>>();
+		//create new ArrayList of ArrayLists to house the copy
+		ArrayList<ArrayList<Integer>> copyOfList = new ArrayList<ArrayList<Integer>>();
 
-		newList.addAll(arrayList);
+		for(int i=0; i<arrayList.size(); i++) {
 
+			//create temporary subset ArrayList
+			ArrayList<Integer> copyOfSubSet = new ArrayList<Integer>();
 
-		return newList;
+			//add all the contents of each subset of the original arrayList element into the temporary subset arrayList
+			copyOfSubSet.addAll(arrayList.get(i));
+
+			//add that arrayList into the master list
+			copyOfList.add(copyOfSubSet);
+		}
+
+		return copyOfList;
 	}
 
 	/*
@@ -107,7 +118,7 @@ public class RecursionQuestion {
 	 * 
 	 */
 
-
+	//[[2],[]]
 	public static ArrayList<ArrayList<Integer>> addElement (ArrayList<ArrayList<Integer>> listCopy, int element){
 
 		//loop through each arrayList in the copy and add the element to each individual arrayList
@@ -147,28 +158,35 @@ public class RecursionQuestion {
 		//recursive case
 		// [a, ...]
 		// [1]
-		int currentElement = arr.get(0);
 
+		//[1,2,...]
+
+		int currentElement = arr.get(0);
 
 		//need an array with the rest of the elements
 		// a, [...] 
 		// 1, []
+		// 1, [2]
 		ArrayList<Integer> restOf = getTail(arr);
+
 
 
 		//call powerSet on remainder
 		// a, [[...], ... ] 
 		// 1, [[]]
+		// 1, [[2],[]]
 		psOfRest = powerSetHelper(restOf);
 
 
 		// make a copy of [[...], ...] (remainder powerset)
 		// 1, [[]], [[]]
+		// 1, [[2],[]], [[2],[]]
 		ArrayList<ArrayList<Integer>> psOfRestCopy = copyPs(psOfRest);
 
 
 		// add a to each element of that copy (each arraylist)
-		//1, [[]], [[1]]
+		// 1, [[]], [[1]]
+		// 1, [[2],[]], [[2,1],[1]]
 		ArrayList<ArrayList<Integer>> psOfRestWithElement = addElement(psOfRestCopy, currentElement);
 
 
