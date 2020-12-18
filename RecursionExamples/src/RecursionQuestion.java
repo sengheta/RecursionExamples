@@ -115,18 +115,21 @@ public class RecursionQuestion {
 
 		//loop through each arrayList in the copy
 		for(int i=0; i<listCopy.size(); i++) {
-			ArrayList<Integer> temp = new ArrayList<Integer>();
-
-			//assign each arrayList to a temporary variable	
-			temp = listCopy.get(i);
-
-			//add the element to that arrayList	
-			temp.add(element);
-
-			//add the arrayList + new element to the final arrayList
-			newCopyWithElement.add(temp);
+			
+			listCopy.get(i).add(element);
+			
+//			ArrayList<Integer> temp = new ArrayList<Integer>();
+//
+//			//assign each arrayList to a temporary variable	
+//			temp = listCopy.get(i);
+//
+//			//add the element to that arrayList	
+//			temp.add(element);
+//
+//			//add the arrayList + new element to the final arrayList
+//			newCopyWithElement.add(temp);
 		}
-		return newCopyWithElement;
+		return listCopy;
 	}
 
 
@@ -158,27 +161,36 @@ public class RecursionQuestion {
 		// [a, ...]
 		// [1]
 		int currentElement = arr.get(0);
+		
+		
 		//need an array with the rest of the elements
 		// a, [...] 
 		// 1, []
 		ArrayList<Integer> restOf = getTail(arr);
+		
+		
 		//call powerSet on remainder
 		// a, [[...], ... ] 
 		// 1, [[]]
-
 		psOfRest = powerSetHelper(restOf);
+		
+		
 		// make a copy of [[...], ...] (remainder powerset)
 		// 1, [[]], [[]]
-
-		ArrayList<ArrayList<Integer>> psOfRestCopy = copyPs(psOfRest);		
+		ArrayList<ArrayList<Integer>> psOfRestCopy = copyPs(psOfRest);
+		
+		
 		// add a to each element of that copy (each arraylist)
 		//1, [[]], [[1]]
-
 		ArrayList<ArrayList<Integer>> psOfRestWithElement = addElement(psOfRestCopy, currentElement);
+		
+		
 		//concat the two arraylists of arraylists
 		// [[], [1]]
 		psOfRest.addAll(psOfRestWithElement);
-		return null;
+		
+		
+		return psOfRest;
 
 	}
 
@@ -194,7 +206,7 @@ public class RecursionQuestion {
 
 
 		finalList = powerSetHelper(originalList);
-
+		System.out.println(finalList);
 
 	}
 
