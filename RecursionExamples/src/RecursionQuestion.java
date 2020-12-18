@@ -2,13 +2,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-//
+/*
+ * main
+ * 
+ * used for testing
+ * 
+ */
 public class RecursionQuestion {
 	public static void main(String[] args) {
 		int [] test = {1};
 		powerSet(test);
 	}
 
+
+	/*
+	 * KillCommas Recursive Method
+	 */
 	static String killCommas(String s) {
 		int commaCount = 0;
 
@@ -34,7 +43,9 @@ public class RecursionQuestion {
 
 	}
 
-
+	/*
+	 * SumDigits Recursive Method
+	 */
 	static int sumDigits(int num) {
 
 		if (num == 0) {
@@ -51,8 +62,15 @@ public class RecursionQuestion {
 
 
 	/*
-	 * create copy of array without first element to separate out the tail
+	 * getTail Helper Method:
+	 * 
+	 * create copy of original arrayList without the first element to isolate the tail
+	 * 
+	 * 
+	 * 
 	 */
+
+
 	public static ArrayList<Integer> getTail(ArrayList<Integer> array) {
 		ArrayList<Integer> tailList = new ArrayList<Integer>();
 		for(int i=1; i<array.size(); i++) {
@@ -64,8 +82,13 @@ public class RecursionQuestion {
 	}
 
 	/*
-	 * create copy of arrayList 
+	 * copyPs Helper Method:
+	 *
+	 * create copy of arrayList of remainder (i.e. the powerSet of restOf)
+	 * 
+	 * 
 	 */
+
 	public static ArrayList<ArrayList<Integer>> copyPs (ArrayList<ArrayList<Integer>> arrayList){
 
 		ArrayList<ArrayList<Integer>> newList = new ArrayList<ArrayList<Integer>>();
@@ -76,8 +99,15 @@ public class RecursionQuestion {
 		return newList;
 	}
 
+	/*
+	 * addElement Helper Method:
+	 * 
+	 * takes in copy of the powerSet of the "restOf", and the current element
+	 * adds the current element to each element of the powerSet of the "restOf"
+	 * 
+	 */
 
-	//TODO: pass in a copy of the ArrayList of ArrayLists. This copy will get the additional element
+
 	public static ArrayList<ArrayList<Integer>> addElement (ArrayList<ArrayList<Integer>> listCopy, int element){
 
 		//create a new ArrayList to hold the copy + the new element
@@ -128,32 +158,23 @@ public class RecursionQuestion {
 		// [a, ...]
 		// [1]
 		int currentElement = arr.get(0);
-		//System.out.println(currentElement);
 		//need an array with the rest of the elements
 		// a, [...] 
 		// 1, []
 		ArrayList<Integer> restOf = getTail(arr);
-		//System.out.println(restOf);
-
 		//call powerSet on remainder
 		// a, [[...], ... ] 
 		// 1, [[]]
 
 		psOfRest = powerSetHelper(restOf);
-		//System.out.println(psOfRest);
-
 		// make a copy of [[...], ...] (remainder powerset)
 		// 1, [[]], [[]]
 
-		ArrayList<ArrayList<Integer>> psOfRestCopy = copyPs(psOfRest);
-		//System.out.println(psOfRestCopy);		
-		//		System.out.println(psOfRest);		
+		ArrayList<ArrayList<Integer>> psOfRestCopy = copyPs(psOfRest);		
 		// add a to each element of that copy (each arraylist)
 		//1, [[]], [[1]]
 
 		ArrayList<ArrayList<Integer>> psOfRestWithElement = addElement(psOfRestCopy, currentElement);
-		//System.out.println(psOfRestWithElement);	
-		//System.out.println(psOfRest);s
 		//concat the two arraylists of arraylists
 		// [[], [1]]
 		psOfRest.addAll(psOfRestWithElement);
@@ -174,8 +195,8 @@ public class RecursionQuestion {
 
 		finalList = powerSetHelper(originalList);
 
-		//		System.out.println(finalList);
 
 	}
 
 }
+
